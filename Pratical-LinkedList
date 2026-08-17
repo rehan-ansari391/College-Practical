@@ -1,0 +1,82 @@
+#include <iostream>
+using namespace std;
+
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+// Function to insert a node at the end
+void insert(Node*& head, int value) {
+    Node* newNode = new Node(value);
+
+    if (head == nullptr) {
+        head = newNode;
+        return;
+    }
+
+    Node* temp = head;
+
+    while (temp->next != nullptr) {
+        temp = temp->next;
+    }
+
+    temp->next = newNode;
+}
+
+// Function to insert a node after a given value
+void insertBetween(Node* head, int afterValue, int value) {
+    Node* temp = head;
+
+    while (temp != nullptr && temp->data != afterValue) {
+        temp = temp->next;
+    }
+
+    if (temp == nullptr) {
+        cout << "Element not found!" << endl;
+        return;
+    }
+
+    Node* newNode = new Node(value);
+
+    newNode->next = temp->next;
+    temp->next = newNode;
+}
+
+// Function to display the list
+void display(Node* head) {
+    Node* temp = head;
+
+    while (temp != nullptr) {
+        cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+
+    cout << "NULL" << endl;
+}
+
+int main() {
+    Node* head = nullptr;
+
+    // Create existing linked list
+    insert(head, 10);
+    insert(head, 20);
+    insert(head, 30);
+
+    cout << "Existing list: ";
+    display(head);
+
+    // Insert 25 after 20
+    insertBetween(head, 20, 25);
+
+    cout << "After insertion: ";
+    display(head);
+
+    return 0;
+}
