@@ -1,0 +1,115 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+Node* head = NULL;
+
+// Insert at Front
+void insertFront(int value) {
+    Node* newNode = new Node();
+
+    newNode->data = value;
+    newNode->prev = NULL;
+    newNode->next = head;
+
+    if (head != NULL) {
+        head->prev = newNode;
+    }
+
+    head = newNode;
+
+    cout << value << " inserted at front.\n";
+}
+
+// Delete from Start
+void deleteStart() {
+    if (head == NULL) {
+        cout << "List is empty.\n";
+        return;
+    }
+
+    Node* temp = head;
+    head = head->next;
+
+    if (head != NULL) {
+        head->prev = NULL;
+    }
+
+    cout << temp->data << " deleted from start.\n";
+    delete temp;
+}
+
+// Forward Traversal
+void displayForward() {
+    if (head == NULL) {
+        cout << "List is empty.\n";
+        return;
+    }
+
+    Node* temp = head;
+
+    cout << "Forward: ";
+
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->next;
+    }
+
+    cout << endl;
+}
+
+// Backward Traversal
+void displayBackward() {
+    if (head == NULL) {
+        cout << "List is empty.\n";
+        return;
+    }
+
+    Node* temp = head;
+
+    // Go to last node
+    while (temp->next != NULL) {
+        temp = temp->next;
+    }
+
+    cout << "Backward: ";
+
+    while (temp != NULL) {
+        cout << temp->data << " ";
+        temp = temp->prev;
+    }
+
+    cout << endl;
+}
+
+int main() {
+
+    int n, value;
+
+    cout << "Enter number of nodes: ";
+    cin >> n;
+
+    for (int i = 0; i < n; i++) {
+        cout << "Enter value for node " << i + 1 << ": ";
+        cin >> value;
+
+        insertFront(value);
+    }
+
+    cout << "\n";
+    displayForward();
+    displayBackward();
+
+    cout << "\nDeleting node from start...\n";
+    deleteStart();
+
+    displayForward();
+    displayBackward();
+
+    return 0;
+}
