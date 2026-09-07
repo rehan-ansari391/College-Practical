@@ -89,27 +89,48 @@ void displayBackward() {
 
 int main() {
 
-    int n, value;
+    int choice, value;
 
-    cout << "Enter number of nodes: ";
-    cin >> n;
+    do {
+        cout << "\n===== DOUBLY LINKED LIST =====\n";
+        cout << "1. Insert at Front\n";
+        cout << "2. Delete from Start\n";
+        cout << "3. Traverse Forward\n";
+        cout << "4. Traverse Backward\n";
+        cout << "5. Exit\n";
 
-    for (int i = 0; i < n; i++) {
-        cout << "Enter value for node " << i + 1 << ": ";
-        cin >> value;
+        cout << "Enter your choice: ";
+        cin >> choice;
 
-        insertFront(value);
-    }
+        switch (choice) {
 
-    cout << "\n";
-    displayForward();
-    displayBackward();
+            case 1:
+                cout << "Enter value: ";
+                cin >> value;
+                insertFront(value);
+                break;
 
-    cout << "\nDeleting node from start...\n";
-    deleteStart();
+            case 2:
+                deleteStart();
+                break;
 
-    displayForward();
-    displayBackward();
+            case 3:
+                displayForward();
+                break;
+
+            case 4:
+                displayBackward();
+                break;
+
+            case 5:
+                cout << "Exiting program...\n";
+                break;
+
+            default:
+                cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 5);
 
     return 0;
 }
