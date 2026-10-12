@@ -1,0 +1,91 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int value) {
+        data = value;
+        left = right = NULL;
+    }
+};
+
+// Create Binary Tree
+Node* createTree() {
+    int value;
+    cout << "Enter data (-1 for no node): ";
+    cin >> value;
+
+    if (value == -1)
+        return NULL;
+
+    Node* root = new Node(value);
+
+    cout << "Enter left child of " << value << endl;
+    root->left = createTree();
+
+    cout << "Enter right child of " << value << endl;
+    root->right = createTree();
+
+    return root;
+}
+
+// Inorder: Left, Root, Right
+void inorder(Node* root) {
+    if (root == NULL)
+        return;
+
+    inorder(root->left);
+    cout << root->data << " ";
+    inorder(root->right);
+}
+
+// Preorder: Root, Left, Right
+void preorder(Node* root) {
+    if (root == NULL)
+        return;
+
+    cout << root->data << " ";
+    preorder(root->left);
+    preorder(root->right);
+}
+
+int main() {
+    cout << "Create Binary Tree\n";
+    Node* root = createTree();
+
+    int choice;
+
+    do {
+        cout << "\n\n--- Binary Tree Menu ---\n";
+        cout << "1. Inorder Traversal\n";
+        cout << "2. Preorder Traversal\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Inorder: ";
+                inorder(root);
+                break;
+
+            case 2:
+                cout << "Preorder: ";
+                preorder(root);
+                break;
+
+            case 3:
+                cout << "Program ended.";
+                break;
+
+            default:
+                cout << "Invalid choice!";
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
