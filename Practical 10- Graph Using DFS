@@ -1,0 +1,90 @@
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Function to create a graph
+void createGraph(vector<vector<int>>& graph, int edges) {
+    int u, v;
+
+    for (int i = 0; i < edges; i++) {
+        cout << "Enter edge (u v): ";
+        cin >> u >> v;
+
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+}
+
+// Function to perform DFS traversal
+void DFS(int node, vector<vector<int>>& graph,
+         vector<bool>& visited) {
+    visited[node] = true;
+    cout << node << " ";
+
+    for (int neighbour : graph[node]) {
+        if (!visited[neighbour]) {
+            DFS(neighbour, graph, visited);
+        }
+    }
+}
+
+int main() {
+    int vertices, edges, choice, start;
+
+    cout << "Enter number of vertices: ";
+    cin >> vertices;
+
+    vector<vector<int>> graph(vertices);
+
+    cout << "Enter number of edges: ";
+    cin >> edges;
+
+    createGraph(graph, edges);
+
+    do {
+        cout << "\n\n--- MENU ---\n";
+        cout << "1. Display Graph\n";
+        cout << "2. Traverse using DFS\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Adjacency List:\n";
+                for (int i = 0; i < vertices; i++) {
+                    cout << i << " -> ";
+                    for (int neighbour : graph[i]) {
+                        cout << neighbour << " ";
+                    }
+                    cout << endl;
+                }
+                break;
+
+            case 2:
+                cout << "Enter starting vertex: ";
+                cin >> start;
+
+                if (start >= 0 && start < vertices) {
+                    vector<bool> visited(vertices, false);
+                    cout << "DFS Traversal: ";
+                    DFS(start, graph, visited);
+                    cout << endl;
+                } else {
+                    cout << "Invalid vertex!\n";
+                }
+                break;
+
+            case 3:
+                cout << "Exiting program...\n";
+                break;
+
+            default:
+                cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
