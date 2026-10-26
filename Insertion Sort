@@ -1,0 +1,86 @@
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void display(vector<int> arr) {
+    cout << "Array elements: ";
+    for (int x : arr) {
+        cout << x << " ";
+    }
+    cout << endl;
+}
+
+void insertionSort(vector<int>& arr, bool ascending) {
+    int n = arr.size();
+
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
+
+        if (ascending) {
+            while (j >= 0 && arr[j] > key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+        } else {
+            while (j >= 0 && arr[j] < key) {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+        }
+
+        arr[j + 1] = key;
+    }
+
+    cout << "Sorting completed!\n";
+}
+
+int main() {
+    vector<int> arr;
+    int n, x, choice;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        arr.push_back(x);
+    }
+
+    do {
+        cout << "\n--- MENU ---\n";
+        cout << "1. Display Array\n";
+        cout << "2. Insertion Sort Ascending\n";
+        cout << "3. Insertion Sort Descending\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                display(arr);
+                break;
+
+            case 2:
+                insertionSort(arr, true);
+                display(arr);
+                break;
+
+            case 3:
+                insertionSort(arr, false);
+                display(arr);
+                break;
+
+            case 4:
+                cout << "Exiting program...\n";
+                break;
+
+            default:
+                cout << "Invalid choice!\n";
+        }
+    } while (choice != 4);
+
+    return 0;
+}
